@@ -9,8 +9,8 @@ const doughMap = [
   },
 ];
 
-export default (items, index) => {
-  const { id, name, image, description, price } = items;
+export default (item, index) => {
+  const { id, name, image, description, price } = item;
   return {
     id,
     name,
