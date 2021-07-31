@@ -40,7 +40,6 @@ export default {
   data() {
     return {
       COUNT_TO_WORD,
-      name: "",
     };
   },
   computed: {
