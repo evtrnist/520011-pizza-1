@@ -4,41 +4,30 @@
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
 
-        <BuilderDoughSelector :doughs="doughs" />
+        <BuilderDoughSelector :doughs="pizza.dough" @setItem="setItem" />
 
-        <BuilderSizeSelector :sizes="sizes" />
+        <BuilderSizeSelector :sizes="pizza.sizes" @setItem="setItem" />
 
         <BuilderIngredientsSelector
-          :ingredients="ingredients"
-          :sauces="sauces"
+          @setItem="setItem"
+          @setIngredients="setIngredients"
+          :sauces="pizza.sauces"
+          :ingredients="pizza.ingredients"
         />
 
         <div class="content__pizza">
-          <label class="input">
-            <span class="visually-hidden">Название пиццы</span>
-            <input
-              type="text"
-              name="pizza_name"
-              placeholder="Введите название пиццы"
-            />
-          </label>
+          <BuilderPizzaName @changeName="changeName" />
 
-          <div class="content__constructor">
-            <div class="pizza pizza--foundation--big-tomato">
-              <div class="pizza__wrapper">
-                <div class="pizza__filling pizza__filling--ananas"></div>
-                <div class="pizza__filling pizza__filling--bacon"></div>
-                <div class="pizza__filling pizza__filling--cheddar"></div>
-              </div>
-            </div>
-          </div>
+          <BuilderPizzaImage
+            :selected-items="selectedItems"
+            @drop="setIngredients"
+            @setIngredients="setIngredients"
+          />
 
-          <div class="content__result">
-            <p>Итого: 0 ₽</p>
-            <button type="button" class="button button--disabled" disabled>
-              Готовьте!
-            </button>
-          </div>
+          <BuilderPriceCounter
+            :price="pizzaPrice"
+            :is-disabled="!pizza.name || !selectedItems.ingredients.length"
+          />
         </div>
       </div>
     </form>
@@ -50,32 +39,84 @@ import misc from "@/static/misc.json";
 import user from "@/static/user.json";
 import pizza from "@/static/pizza.json";
 
-import normalizeDough from "@/common/normalizeDough";
-import normalizeSizes from "@/common/normalizeSizes";
-import normalizeSauces from "@/common/normalizeSauces";
-import normalizeIngredients from "@/common/normalizeIngredients";
+import getPizzaData from "@/common/getPizzaData";
+import getSelectedPizzaItem from "@/common/getSelectedPizzaItem";
 
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
+import BuilderPizzaImage from "@/modules/builder/components/BuilderPizzaImage";
+import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
+import BuilderPizzaName from "@/modules/builder/components/BuilderPizzaName";
 
 export default {
-  name: "IndexLayout",
+  name: "Index",
   data() {
     return {
       misc,
       user,
-      doughs: pizza.dough.map((item, index) => normalizeDough(item, index)),
-      ingredients: pizza.ingredients.map((item) => normalizeIngredients(item)),
-      sauces: pizza.sauces.map((item, index) => normalizeSauces(item, index)),
-      sizes: pizza.sizes.map((item, index) => normalizeSizes(item, index)),
+      pizza: getPizzaData(pizza),
     };
   },
-  computed: {},
+  computed: {
+    selectedItems() {
+      return {
+        dough: getSelectedPizzaItem(this.pizza, "dough"),
+        size: getSelectedPizzaItem(this.pizza, "sizes"),
+        sauce: getSelectedPizzaItem(this.pizza, "sauces"),
+        ingredients: this.pizza.ingredients.filter((item) => item.count),
+      };
+    },
+
+    pizzaPrice() {
+      const doughPrice = this.selectedItems.dough.price;
+      const saucePrice = this.selectedItems.sauce.price;
+      const inredientsPrice = this.selectedItems.ingredients.reduce(
+        (acc, curr) => {
+          const { count, price } = curr;
+          return acc + count * price;
+        },
+        0
+      );
+      const multiplier = this.selectedItems.size.multiplier;
+      return (doughPrice + saucePrice + inredientsPrice) * multiplier;
+    },
+  },
   components: {
     BuilderDoughSelector,
     BuilderSizeSelector,
     BuilderIngredientsSelector,
+    BuilderPizzaImage,
+    BuilderPriceCounter,
+    BuilderPizzaName,
+  },
+  methods: {
+    setItem(value, type) {
+      this.pizza[type] = this.pizza[type].map((item) => ({
+        ...item,
+        isChecked: item.value === value,
+      }));
+    },
+
+    setIngredients(count, ingredient) {
+      if (!ingredient) {
+        return;
+      }
+
+      const updatedIngredient = {
+        ...ingredient,
+        count,
+      };
+
+      this.pizza.ingredients = this.pizza.ingredients.map((item) => {
+        return item.value === updatedIngredient.value
+          ? updatedIngredient
+          : item;
+      });
+    },
+    changeName(name) {
+      this.pizza.name = name;
+    },
   },
 };
 </script>

@@ -10,6 +10,7 @@
           :item="item"
           :classes="'dough__input dough__input--' + item.value"
           :name="'dough'"
+          @setOption="setOption"
         >
           <b>{{ item.name }}</b>
           <span>{{ item.description }}</span>
@@ -32,7 +33,11 @@ export default {
       require: true,
     },
   },
-  setup() {},
+  methods: {
+    setOption(data) {
+      this.$emit("setItem", data, "dough");
+    },
+  },
 };
 </script>
 

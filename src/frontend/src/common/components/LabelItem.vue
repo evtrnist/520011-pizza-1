@@ -6,6 +6,7 @@
       :value="item.value"
       class="visually-hidden"
       :checked="item.isChecked"
+      @input="setOption"
     />
     <slot />
   </label>
@@ -28,7 +29,11 @@ export default {
       required: true,
     },
   },
-  setup() {},
+  methods: {
+    setOption(evt) {
+      this.$emit("setOption", evt.target.value);
+    },
+  },
 };
 </script>
 

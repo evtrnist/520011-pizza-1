@@ -10,6 +10,7 @@
           :item="item"
           :classes="'diameter__input diameter__input--' + item.value"
           :name="'diameter'"
+          @setOption="setOption"
         >
           <span>{{ item.name }}</span>
         </LabelItem>
@@ -32,7 +33,11 @@ export default {
   components: {
     LabelItem,
   },
-  setup() {},
+  methods: {
+    setOption(data) {
+      this.$emit("setItem", data, "sizes");
+    },
+  },
 };
 </script>
 

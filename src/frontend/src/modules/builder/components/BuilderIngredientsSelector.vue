@@ -13,6 +13,7 @@
             :item="item"
             :name="'sauce'"
             :classes="'radio ingredients__input'"
+            @setOption="setOption"
           >
             <span>{{ item.name }}</span>
           </LabelItem>
@@ -24,12 +25,23 @@
           <ul class="ingredients__list">
             <li
               class="ingredients__item"
-              v-for="{ name, id, value, slug } in ingredients"
-              :key="id"
+              v-for="(ingredient, index) in ingredients"
+              :key="index"
             >
-              <span :class="'filling filling--' + slug">{{ name }}</span>
+              <AppDrag
+                :transferData="ingredient"
+                :is-draggable="ingredient.count < IngredientCount.MAX"
+              >
+                <span :class="`filling filling--${ingredient.value}`">
+                  {{ ingredient.name }}
+                </span>
+              </AppDrag>
 
-              <ItemCounter :value="value" />
+              <ItemCounter
+                :ItemCount="IngredientCount"
+                :item="ingredient"
+                @setCount="setCount"
+              />
             </li>
           </ul>
         </div>
@@ -41,19 +53,38 @@
 <script>
 import LabelItem from "@/common/components/LabelItem";
 import ItemCounter from "@/common/components/ItemCounter";
+import AppDrag from "@/common/components/AppDrag";
+import { IngredientCount } from "@/common/constants";
 
 export default {
   name: "BuilderIngredientsSelector",
   props: {
+    sauces: {
+      type: Array,
+      required: true,
+    },
     ingredients: {
       type: Array,
-      require: true,
+      required: true,
     },
-    sauces: { type: Array, require: true },
   },
   components: {
     LabelItem,
     ItemCounter,
+    AppDrag,
+  },
+  methods: {
+    setOption(data) {
+      this.$emit("setItem", data, "sauces");
+    },
+    setCount(count, data) {
+      this.$emit("setIngredients", count, data);
+    },
+  },
+  data() {
+    return {
+      IngredientCount,
+    };
   },
 };
 </script>
