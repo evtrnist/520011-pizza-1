@@ -314,7 +314,7 @@
 
 <script>
 export default {
-  name: "Cart",
+  name: "CartView",
 };
 </script>
 

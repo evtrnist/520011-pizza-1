@@ -211,7 +211,7 @@
 
 <script>
 export default {
-  name: "Orders",
+  name: "OrdersView",
 };
 </script>
 
