@@ -6,30 +6,35 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "",
-    name: "Index",
-    component: () => import("@/views/Index.vue"),
+    name: "IndexView",
+    component: () => import("@/views/IndexView.vue"),
+    meta: { layout: "AppLayoutMain" },
     children: [
       {
         path: "/login",
-        name: "Login",
-        component: () => import("@/views/Login.vue"),
+        name: "LoginView",
+        component: () => import("@/views/LoginView.vue"),
+        meta: { layout: "AppLayoutDefault" },
       },
     ],
   },
   {
     path: "/profile",
-    name: "Profile",
-    component: () => import("@/views/Profile.vue"),
+    name: "ProfileView",
+    component: () => import("@/views/ProfileView.vue"),
+    meta: { layout: "AppLayoutMain" },
   },
   {
     path: "/cart",
-    name: "Cart",
-    component: () => import("@/views/Cart.vue"),
+    name: "CartView",
+    component: () => import("@/views/CartView.vue"),
+    meta: { layout: "AppLayoutMain" },
   },
   {
     path: "/orders",
-    name: "Orders",
-    component: () => import("@/views/Orders.vue"),
+    name: "OrdersView",
+    component: () => import("@/views/OrdersView.vue"),
+    meta: { layout: "AppLayoutMain" },
   },
 ];
 
