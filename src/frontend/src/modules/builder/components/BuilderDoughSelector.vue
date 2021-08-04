@@ -30,7 +30,7 @@ export default {
   props: {
     doughs: {
       type: Array,
-      require: true,
+      required: true,
     },
   },
   methods: {
