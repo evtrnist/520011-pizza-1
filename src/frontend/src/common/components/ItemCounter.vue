@@ -32,11 +32,11 @@ export default {
   props: {
     item: {
       type: Object,
-      require: true,
+      required: true
     },
     ItemCount: {
       type: Object,
-      require: true,
+      required: true
     },
   },
   methods: {
