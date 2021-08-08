@@ -22,7 +22,7 @@ const routes = [
     path: "/profile",
     name: "ProfileView",
     component: () => import("@/views/ProfileView.vue"),
-    meta: { layout: "AppLayoutMain" },
+    meta: { layout: "AppLayoutSidebar" },
   },
   {
     path: "/cart",
@@ -34,7 +34,7 @@ const routes = [
     path: "/orders",
     name: "OrdersView",
     component: () => import("@/views/OrdersView.vue"),
-    meta: { layout: "AppLayoutMain" },
+    meta: { layout: "AppLayoutSidebar" },
   },
 ];
 
