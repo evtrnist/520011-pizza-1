@@ -28,6 +28,9 @@
 <script>
 export default {
   name: "LoginView",
+  mounted() {
+    console.log(this);
+  },
 };
 </script>
 

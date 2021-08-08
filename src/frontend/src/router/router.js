@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "",
+    path: "/",
     name: "IndexView",
     component: () => import("@/views/IndexView.vue"),
     meta: { layout: "AppLayoutMain" },
