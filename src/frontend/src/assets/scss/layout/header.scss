@@ -53,6 +53,7 @@
 }
 
 .header__user {
+  display: flex;
   a {
     display: block;
 
@@ -96,6 +97,7 @@
     display: inline-block;
 
     vertical-align: middle;
+    line-height: 32px;
 
     color: $white;
   }
