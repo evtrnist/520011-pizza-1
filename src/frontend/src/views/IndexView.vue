@@ -20,14 +20,14 @@
           <BuilderPizzaName @changeName="changeName" />
 
           <BuilderPizzaImage
-            :selected-items="selectedItems"
+            :selected-items="selectedPizza"
             @drop="setIngredients"
             @setIngredients="setIngredients"
           />
 
           <BuilderPriceCounter
             :price="pizzaPrice"
-            :is-disabled="!pizza.name || !selectedItems.ingredients.length"
+            :is-disabled="!pizza.name || !selectedPizza.ingredients.length"
           />
         </div>
       </div>
@@ -36,13 +36,6 @@
 </template>
 
 <script>
-import misc from "@/static/misc.json";
-import user from "@/static/user.json";
-import pizza from "@/static/pizza.json";
-
-import getPizzaData from "@/common/getPizzaData";
-import getSelectedPizzaItem from "@/common/getSelectedPizzaItem";
-
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
@@ -54,34 +47,13 @@ export default {
   name: "IndexView",
   data() {
     return {
-      misc,
-      user,
-      pizza: getPizzaData(pizza),
+      pizza: {},
     };
   },
   computed: {
-    selectedItems() {
-      return {
-        dough: getSelectedPizzaItem(this.pizza, "dough"),
-        size: getSelectedPizzaItem(this.pizza, "sizes"),
-        sauce: getSelectedPizzaItem(this.pizza, "sauces"),
-        ingredients: this.pizza.ingredients.filter((item) => item.count),
-      };
-    },
+    selectedPizza() {},
 
-    pizzaPrice() {
-      const doughPrice = this.selectedItems.dough.price;
-      const saucePrice = this.selectedItems.sauce.price;
-      const inredientsPrice = this.selectedItems.ingredients.reduce(
-        (acc, curr) => {
-          const { count, price } = curr;
-          return acc + count * price;
-        },
-        0
-      );
-      const multiplier = this.selectedItems.size.multiplier;
-      return (doughPrice + saucePrice + inredientsPrice) * multiplier;
-    },
+    pizzaPrice() {},
   },
   components: {
     BuilderDoughSelector,
