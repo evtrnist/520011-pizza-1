@@ -11,15 +11,14 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link to="/cart">0 ₽</router-link>
+      <router-link to="/cart">{{ totalPrice }}} ₽</router-link>
     </div>
     <div class="header__user">
-      <router-link class="header__login" to="/login" v-if="!isAuth">
+      <router-link class="header__login" to="/login" v-if="!user">
         <span>Войти</span>
       </router-link>
 
-      <!-- если авторизован -->
-      <template v-if="isAuth">
+      <template v-if="user">
         <router-link to="/profile">
           <picture>
             <source
@@ -30,14 +29,14 @@
               "
             />
             <img
-              src="@/assets/img/users/user5.jpg"
+              :src="user.avatar"
               srcset="@/assets/img/users/user5@2x.jpg"
-              alt="Василий Ложкин"
+              :alt="user.name"
               width="32"
               height="32"
             />
           </picture>
-          <span>Василий Ложкин</span>
+          <span>{{ user.name }}</span>
         </router-link>
         <router-link to="/" class="header__logout">
           <span>Выйти</span>
@@ -50,11 +49,11 @@
 <script>
 export default {
   name: "AppLayoutHeader",
-  props: {
-    isAuth: {
-      type: Boolean,
-      default: false,
-    },
+  computed: {
+    ...mapState({
+      user: (state) => state.user,
+      totalPrice: (state) => state.cart.totalPrice,
+    }),
   },
 };
 </script>

@@ -21,12 +21,8 @@
 </template>
 
 <script>
-import LabelItem from "@/common/components/LabelItem";
 export default {
   name: "BuilderDoughSelector",
-  components: {
-    LabelItem,
-  },
   props: {
     doughs: {
       type: Array,

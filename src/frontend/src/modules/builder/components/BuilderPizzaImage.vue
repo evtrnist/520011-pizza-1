@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import AppDrop from "@/common/components/AppDrop";
 import { COUNT_TO_WORD } from "@/common/constants";
 
 const BASE_FILLING_CLASS = "pizza__filling--";
@@ -33,9 +32,6 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  components: {
-    AppDrop,
   },
   data() {
     return {

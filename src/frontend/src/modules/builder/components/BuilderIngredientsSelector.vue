@@ -51,9 +51,6 @@
 </template>
 
 <script>
-import LabelItem from "@/common/components/LabelItem";
-import ItemCounter from "@/common/components/ItemCounter";
-import AppDrag from "@/common/components/AppDrag";
 import { IngredientCount } from "@/common/constants";
 
 export default {
@@ -67,11 +64,6 @@ export default {
       type: Array,
       required: true,
     },
-  },
-  components: {
-    LabelItem,
-    ItemCounter,
-    AppDrag,
   },
   methods: {
     setOption(data) {

@@ -1,6 +1,6 @@
 <template>
   <div class="app-layout-sidebar">
-    <AppLayoutHeader :is-auth="true" />
+    <AppLayoutHeader />
     <main class="layout">
       <div class="layout__sidebar sidebar">
         <router-link to="/" class="logo layout__logo">

@@ -1,6 +1,7 @@
 <template>
   <div class="app-layout-default">
-    <AppLayoutHeader :is-auth="false" />
+    <AppNotifications />
+    <AppLayoutHeader />
     <slot />
   </div>
 </template>

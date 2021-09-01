@@ -1,6 +1,6 @@
 <template>
   <div class="app-layout-main">
-    <AppLayoutHeader :is-auth="true" />
+    <AppLayoutHeader />
     <slot />
   </div>
 </template>
