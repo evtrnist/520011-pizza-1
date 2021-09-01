@@ -41,3 +41,5 @@ export const COUNT_TO_WORD = {
   2: "second",
   3: "third",
 };
+
+export const MESSAGE_LIVE_TIME = 3000;
