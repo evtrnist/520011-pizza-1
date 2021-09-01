@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import LabelItem from "@/common/components/LabelItem";
-
 export default {
   name: "BuilderSizeSelector",
   props: {
@@ -29,9 +27,6 @@ export default {
       type: Array,
       required: true,
     },
-  },
-  components: {
-    LabelItem,
   },
   methods: {
     setOption(data) {
