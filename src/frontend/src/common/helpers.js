@@ -1,9 +1,9 @@
 import { PIZZA_VALUES_BY_NAME } from "./constants";
 
-export const capitalize = string =>
+export const capitalize = (string) =>
   `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
 
-export const normalizePizzaData = pizza => ({
+export const normalizeBuilderData = (pizza) => ({
   dough: (pizza.dough || []).map((dough, index) => ({
     ...dough,
     value: PIZZA_VALUES_BY_NAME.dough[dough.name],
@@ -25,6 +25,7 @@ export const normalizePizzaData = pizza => ({
     count: 0,
   })),
   name: "",
+  price: 0,
 });
 
 export const getSelectedPizzaItem = (pizza, name) => {

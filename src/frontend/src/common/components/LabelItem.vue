@@ -31,7 +31,8 @@ export default {
   },
   methods: {
     setOption(evt) {
-      this.$emit("setOption", evt.target.value);
+      const checkedItem = { ...this.item, value: evt.target.value };
+      this.$emit("setOption", checkedItem);
     },
   },
 };
